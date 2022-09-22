@@ -19,7 +19,10 @@ import cld3
 # gpt3 
 
 from . import gpt3
+from dotenv import load_dotenv
 
+load_dotenv()  # take environment variables from .env.
+Bearer = os.getenv('Bearer')
 # regular expression
 regexp = re.compile(r'nations?|news')
 
@@ -66,7 +69,7 @@ class BotViewSet(viewsets.ViewSet):
         with requests.Session() as session:
             session.get("https://graph.facebook.com/v14.0/105361369000085/messages")
             r = session.post('https://graph.facebook.com/v14.0/105361369000085/messages', data=json.dumps(payload),
-                headers={"Accept": "application/json", "Content-Type": "application/json", 'Authorization': 'Bearer EAAGqQbJZAagMBAAnuugV7CDEMGB9GeUCFV8HCKfAyUW35p4Pv8fq8688N13uHEkXEGhYky77FNUq4XcQsK7glBaSzdlkaZCGmx7RS2icuPxSDxc1LBne2HvP7787kdbM1IsxZBkXjR65kKOAo49U9qumAROAc4mJwtzc4tZB8BSGDtXYYxEY'})
+                headers={"Accept": "application/json", "Content-Type": "application/json", 'Authorization': f'Bearer {Bearer}'})
             # print(r.content) 
         return Response({'message': message}, status=status.HTTP_200_OK)
     
@@ -75,7 +78,7 @@ class BotViewSet(viewsets.ViewSet):
         with requests.Session() as session:
             session.get("https://graph.facebook.com/v14.0/105361369000085/messages")
             r = session.post('https://graph.facebook.com/v14.0/105361369000085/messages', data=json.dumps(payload),
-                headers={"Accept": "application/json", "Content-Type": "application/json", 'Authorization': 'Bearer EAAGqQbJZAagMBAAnuugV7CDEMGB9GeUCFV8HCKfAyUW35p4Pv8fq8688N13uHEkXEGhYky77FNUq4XcQsK7glBaSzdlkaZCGmx7RS2icuPxSDxc1LBne2HvP7787kdbM1IsxZBkXjR65kKOAo49U9qumAROAc4mJwtzc4tZB8BSGDtXYYxEY'})
+                headers={"Accept": "application/json", "Content-Type": "application/json", 'Authorization': f'Bearer {Bearer}'})
             # print(r.content)
         return Response({'message': message}, status=status.HTTP_200_OK)
 
