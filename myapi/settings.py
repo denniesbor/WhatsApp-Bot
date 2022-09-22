@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# load dot env
+
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,13 +26,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'px-@2h32g7s)ye*qelptu2p^@=l+0(q@a@y$q21^hz8pq9695x'
+SECRET_KEY = os.getenv('SECRET_KEY')
+ALLOWED_HOSTS = eval(os.getenv('ALLOWED_HOSTS'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['f712-187-170-194-91.ngrok.io', '127.0.0.1']
 
+# SESSION_COOKIE_SECURE = True
 
 # Application definition
 
@@ -38,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'myapi.core',
+    'core',
     'rest_framework.authtoken',
 ]
 
@@ -62,7 +69,7 @@ ROOT_URLCONF = 'myapi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,6 +84,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myapi.wsgi.application'
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+# session
+SESSION_SAVE_EVERY_REQUEST =True
+# SESSION_COOKIE_DOMAIN = "notlocalhost"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -126,3 +137,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Add these new lines
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
