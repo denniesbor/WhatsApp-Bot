@@ -49,7 +49,7 @@ def append_interaction_to_chat_log(question, answer, chat_log=None):
 def get_lang(message):
     response = openai.Completion.create(
     model="text-davinci-002",
-    prompt=f"Detect language. \nquiz: I lov you?\nanswer: en\nquiz:  {message}?",
+    prompt=f"Detect language. \nquiz: I love you?\nanswer: en\nquiz:  {message}?",
     temperature=0.7,
     max_tokens=256,
     top_p=1,

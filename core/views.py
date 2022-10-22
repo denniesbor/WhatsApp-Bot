@@ -14,10 +14,8 @@ from flask import session
 import json
 import requests
 
-import cld3
 
 # gpt3 
-
 from . import gpt3
 from dotenv import load_dotenv
 
@@ -86,11 +84,11 @@ class BotViewSet(viewsets.ViewSet):
         files = os.listdir(os.path.join('static','articles'))
         filelink = (sorted([file for file in files if file.endswith('pdf')]))[-1]
         
-        payload = { "messaging_product": "whatsapp","recipient_type": "individual","to": f"{sender}", "type": "document","document": { "link":f"https://4421-197-237-211-27.ap.ngrok.io/static/articles/{filelink}", "filename": f"{filelink}"} }
+        payload = { "messaging_product": "whatsapp","recipient_type": "individual","to": f"{sender}", "type": "document","document": { "link": f"https://www.chepkelio.fun/static/articles/{filelink}", "filename": f"{filelink}"} }
         with requests.Session() as session:
             session.get("https://graph.facebook.com/v14.0/105361369000085/messages")
             r = session.post('https://graph.facebook.com/v14.0/105361369000085/messages', data=json.dumps(payload),
-                headers={"Accept": "application/json", "Content-Type": "application/json", 'Authorization': 'Bearer EAAGqQbJZAagMBAAnuugV7CDEMGB9GeUCFV8HCKfAyUW35p4Pv8fq8688N13uHEkXEGhYky77FNUq4XcQsK7glBaSzdlkaZCGmx7RS2icuPxSDxc1LBne2HvP7787kdbM1IsxZBkXjR65kKOAo49U9qumAROAc4mJwtzc4tZB8BSGDtXYYxEY'})
+                headers={"Accept": "application/json", "Content-Type": "application/json", 'Authorization': f'Bearer {Bearer}'})
             # print(r.content)
         return Response({'message': "articles sent"}, status=status.HTTP_200_OK)
     

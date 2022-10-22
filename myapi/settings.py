@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = eval(os.getenv('ALLOWED_HOSTS'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 # SESSION_COOKIE_SECURE = True
@@ -140,8 +140,8 @@ STATIC_URL = '/static/'
 
 # Add these new lines
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
